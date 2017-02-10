@@ -1,0 +1,12 @@
+.page-header
+  = link_to rule_sets_path, class: 'btn btn-default' do
+    span.glyphicon.glyphicon-list-alt
+    |  Back 
+  = link_to @rule_set, class: 'btn btn-primary' do
+    span.glyphicon.glyphicon-info-sign
+    |  Show 
+  h1
+    | Editing 
+    | rule_set
+
+= render 'form'

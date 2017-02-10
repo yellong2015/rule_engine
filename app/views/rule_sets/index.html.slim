@@ -1,0 +1,32 @@
+.page-header
+  = link_to new_rule_set_path, class: 'btn btn-primary' do 
+    span.glyphicon.glyphicon-plus
+    | New Rule set
+  h1
+    | Listing rule_sets
+
+.table-responsive
+  table.table.table-striped.table-bordered.table-hover
+    thead
+      tr
+        th Name
+        th Priority
+        th Rules
+        th Actions
+        th colspan=3
+    tbody
+      - @rule_sets.each do | rule_set |
+        tr
+          td = rule_set.name
+          td = rule_set.priority
+          td = rule_set.rules.map{|rule| "#{rule.atom} #{rule.operator} #{rule.value}"}.join(" #{rule_set.operator} ")
+          td 
+            - rule_set.tasks.each_with_index do |a, index|
+              p = "#{index+1}. #{a.name} #{a.content}"
+
+          td
+            = link_to 'Show', rule_set
+          td
+            = link_to 'Edit', edit_rule_set_path(rule_set) 
+          td
+            = link_to 'Destroy', rule_set, method: :delete, data: { confirm: 'Are you sure?' } 

@@ -1,0 +1,10 @@
+.page-header
+  = link_to rule_sets_path, class: 'btn btn-default' do 
+    span.glyphicon.glyphicon-list-alt
+    |  Back 
+  = link_to edit_rule_set_path(@rule_set), class: 'btn btn-primary' do 
+    span.glyphicon.glyphicon-pencil
+    |  Edit 
+  h1
+    | Show rule_set
+dl.dl-horizontal

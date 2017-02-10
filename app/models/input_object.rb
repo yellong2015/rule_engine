@@ -1,0 +1,3 @@
+class InputObject < OpenStruct
+
+end

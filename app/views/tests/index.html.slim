@@ -1,0 +1,38 @@
+.page-header
+  = link_to new_test_path, class: 'btn btn-primary' do 
+    span.glyphicon.glyphicon-plus
+    |  New Test
+  h1
+    | Listing tests
+
+.table-responsive
+  table.table.table-striped.table-bordered.table-hover
+    thead
+      tr
+        th
+          | Input
+        th
+          | Result
+        th colspan=4
+    tbody
+      - @tests.each do | test |
+        tr.test
+          td
+            = test.input
+          td.result
+            = test.result_for_human
+          td
+            = link_to 'Into Rule Engine', into_rule_engine_test_path(test), remote: true, method: 'POST', class: 'into-rule-engine'
+          td
+            = link_to 'Show', test
+          td
+            = link_to 'Edit', edit_test_path(test) 
+          td
+            = link_to 'Destroy', test, method: :delete, data: { confirm: 'Are you sure?' } 
+
+
+coffee:
+  $('.into-rule-engine').on 'ajax:success', (event, data, status, xhr) ->
+    if data.data
+      $(@).parents(".test").find(".result").html(data.data)
+

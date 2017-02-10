@@ -1,0 +1,72 @@
+= form_for(@rule_set, html: { class: "form-horizontal", role: "form" }) do |f|
+  - if @rule_set.errors.any?
+    .alert.alert-danger.alert-dismissable role="alert"
+      button.close type="button" data-dismiss="alert"
+        span aria-hidden="true"
+          | &times;
+        span.sr-only
+          | Close
+      h4= "#{pluralize(@rule_set.errors.count,"error")} prohibited this rule_set from being saved:"
+      ul
+        - @rule_set.errors.full_messages.each do |msg|
+          li= msg
+  .form-group
+    = f.label :name, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :name, class: "form-control"
+
+  .form-group
+    = f.label :description, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :description, class: "form-control"
+
+  .form-group
+    = f.label :operator, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :operator, class: "form-control"
+
+  .form-group
+    = f.label :priority, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :priority, class: "form-control"
+
+  .form-group
+    = f.label :rules, class: "col-sm-2 control-label"
+    .col-sm-10.plus-container
+      = f.fields_for :rules do |r|
+        .form-group.plus-item
+          .col-sm-4
+            = r.text_field :atom, class: "form-control"
+          .col-sm-2
+            = r.text_field :operator, class: "form-control"
+          .col-sm-4
+            = r.text_field :value, class: "form-control"
+          .col-sm-2
+            .form-control style="border: none; box-shadow: none"
+              span.glyphicon.glyphicon-plus
+
+  .form-group
+    = f.label :rule_set_actions, "Actions", class: "col-sm-2 control-label"
+    .col-sm-10.plus-container
+      = f.fields_for :rule_set_actions do |r|
+        .form-group.plus-item
+          .col-sm-5
+            = r.select :task_id, option_for_actions, {}, class: "form-control"
+          .col-sm-2
+            .form-control style="border: none; box-shadow: none"
+              span.glyphicon.glyphicon-plus
+      
+
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit class: "btn btn-primary"
+
+coffee:
+  $('body').on 'click', '.glyphicon-plus', ->
+    $container = $(@).parents('.plus-container').first()
+    nextItem = $container.find('.plus-item').length + 1
+    html = $container.find('.plus-item')[0].outerHTML.replace(/\[0\]/g, "[" + nextItem + "]").replace(/_0_/g, "_" + nextItem + "_")
+    $container.append(html)
+
+    
+

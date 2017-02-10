@@ -1,0 +1,23 @@
+.page-header
+  = link_to new_rule_path, class: 'btn btn-primary' do 
+    span.glyphicon.glyphicon-plus
+    |  New Rule
+  h1
+    | Listing rules
+
+.table-responsive
+  table.table.table-striped.table-bordered.table-hover
+    thead
+      tr
+        th
+        th
+        th
+    tbody
+      - @rules.each do | rule |
+        tr
+          td
+            = link_to 'Show', rule
+          td
+            = link_to 'Edit', edit_rule_path(rule) 
+          td
+            = link_to 'Destroy', rule, method: :delete, data: { confirm: 'Are you sure?' } 
