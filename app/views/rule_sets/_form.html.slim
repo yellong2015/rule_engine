@@ -41,9 +41,12 @@
             = r.text_field :operator, class: "form-control"
           .col-sm-4
             = r.text_field :value, class: "form-control"
-          .col-sm-2
+          .col-sm-1
             .form-control style="border: none; box-shadow: none"
               span.glyphicon.glyphicon-plus
+          .col-sm-1
+            .form-control style="border: none; box-shadow: none"
+              span.glyphicon.glyphicon-minus
 
   .form-group
     = f.label :rule_set_actions, "Actions", class: "col-sm-2 control-label"
@@ -52,9 +55,12 @@
         .form-group.plus-item
           .col-sm-5
             = r.select :task_id, option_for_actions, {}, class: "form-control"
-          .col-sm-2
+          .col-sm-1
             .form-control style="border: none; box-shadow: none"
               span.glyphicon.glyphicon-plus
+          .col-sm-1
+            .form-control style="border: none; box-shadow: none"
+              span.glyphicon.glyphicon-minus
       
 
   .form-group
@@ -68,5 +74,5 @@ coffee:
     html = $container.find('.plus-item')[0].outerHTML.replace(/\[0\]/g, "[" + nextItem + "]").replace(/_0_/g, "_" + nextItem + "_")
     $container.append(html)
 
-    
-
+  $('body').on 'click', '.glyphicon-minus', ->
+    $(@).parents('.plus-item').remove()
